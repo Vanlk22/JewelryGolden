@@ -30,6 +30,7 @@ namespace JewelryGolden.Models
         public string Image { get; set; } // Hình ảnh đại diện
 
         // Thuộc tính điều hướng (Navigation Property)
+        [ForeignKey("CategoryID")]
         public virtual IEnumerable<Product> Products { get; set; }
     }
 }

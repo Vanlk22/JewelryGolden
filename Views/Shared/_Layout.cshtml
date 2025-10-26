@@ -97,21 +97,18 @@
                     <h6 class="m-0">Categories</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
-                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                <a href="" class="dropdown-item">Women's </a>
-                            </div>
-                        </div>
-                        <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Ring</a>
-                        <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Bracelet</a>
-                        <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Earring</a>
-                        <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Necklace</a>
-                        <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Watch</a>
-                    </div>
-                </nav>
+                @Html.Action("_CategoryMenu", "ProductCategories")
+                @*<nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
+            <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                <div class="nav-item dropdown">
+                </div>
+                <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Ring</a>
+                <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Bracelet</a>
+                <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Earring</a>
+                <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Necklace</a>
+                <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Watch</a>
+            </div>
+        </nav>*@
             </div>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
@@ -126,7 +123,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="@Url.Action("Index", "Home")" class="nav-item nav-link active">Home</a>
                             <a href="@Url.Action("Index", "Products")" class="nav-item nav-link">Shop</a>
-                            <a href="@Url.Action("Details", "Products")" class="nav-item nav-link">Shop Detail</a>
+                            @*<a href="@Url.Action("Details", "Products")" class="nav-item nav-link">Shop Detail</a>*@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
@@ -210,11 +207,10 @@
             <div class="col-md-4 mb-5">
                 <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                    <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                    <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Order Detail</a>
-                    <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                    <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                    <a class="text-dark mb-2" href="@Url.Action("Index", "Home")l"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-dark mb-2" href="@Url.Action("Index", "Products")"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                    <a class="text-dark mb-2" href="@Url.Action("Details", "Oder")"><i class="fa fa-angle-right mr-2"></i>Order Detail</a>
+                    <a class="text-dark mb-2" href="@Url.Action("Index", "Cart")"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                 </div>
             </div>
             <div class="col-md-4 mb-5">

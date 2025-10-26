@@ -179,6 +179,7 @@
     <Compile Include="Areas\Admin\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductCategoriesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsAdminController.cs" />
+    <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -190,6 +191,18 @@
     <Compile Include="Migrations\202510231548262_AddIdentityTables.cs" />
     <Compile Include="Migrations\202510231548262_AddIdentityTables.Designer.cs">
       <DependentUpon>202510231548262_AddIdentityTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510251018131_update.cs" />
+    <Compile Include="Migrations\202510251018131_update.Designer.cs">
+      <DependentUpon>202510251018131_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510251103137_updateDB.cs" />
+    <Compile Include="Migrations\202510251103137_updateDB.Designer.cs">
+      <DependentUpon>202510251103137_updateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510251117383_initDB2.cs" />
+    <Compile Include="Migrations\202510251117383_initDB2.Designer.cs">
+      <DependentUpon>202510251117383_initDB2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -230,7 +243,7 @@
     <Content Include="Resources\img\offer-1.png" />
     <Content Include="Resources\img\necklace-03.jpg" />
     <Content Include="Resources\img\earring-04.jpg" />
-    <Content Include="Resources\img\offer-2.jpg" />
+    <Content Include="Resources\img\offer-2.png" />
     <Content Include="Resources\img\product-1.jpg" />
     <Content Include="Resources\img\product-10.jpg" />
     <Content Include="Resources\img\product-11.jpg" />
@@ -367,11 +380,14 @@
     <Content Include="Areas\Admin\Views\Posts\Index.cshtml" />
     <Content Include="Resources\lib\owlcarousel\LICENSE" />
     <Content Include="Resources\mail\contact.php" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ProductCategories\Create.cshtml" />
+    <Content Include="Views\ProductCategories\Delete.cshtml" />
+    <Content Include="Views\ProductCategories\Details.cshtml" />
+    <Content Include="Views\ProductCategories\Edit.cshtml" />
+    <Content Include="Views\ProductCategories\Index.cshtml" />
+    <Content Include="Views\Shared\_CategoryMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -410,6 +426,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202510231548262_AddIdentityTables.resx">
       <DependentUpon>202510231548262_AddIdentityTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510251018131_update.resx">
+      <DependentUpon>202510251018131_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510251103137_updateDB.resx">
+      <DependentUpon>202510251103137_updateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510251117383_initDB2.resx">
+      <DependentUpon>202510251117383_initDB2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

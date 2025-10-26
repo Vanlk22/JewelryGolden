@@ -55,6 +55,8 @@ namespace JewelryGolden.Models
         public System.DateTime? CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime? UpdatedDate { get; set; }
+        [Required]
+        public decimal OriginalPrice { get; set; }
         public string UpdatedBy { get; set; }
     }
 }

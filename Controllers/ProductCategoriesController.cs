@@ -1,0 +1,170 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using JewelryGolden.Models;
+
+namespace JewelryGolden.Controllers
+{
+    public class ProductCategoriesController : Controller
+    {
+        private JewelryDbContext db = new JewelryDbContext();
+
+        // GET: ProductCategories
+        public ActionResult Index(int? categoryId)
+        {
+            // Debug: kiểm tra parameter
+            System.Diagnostics.Debug.WriteLine($"categoryId received: {categoryId}");
+
+            var products = db.Products.Include(p => p.ProductCategory)
+                            .Where(p => p.Status == true);
+
+            if (categoryId.HasValue)
+            {
+                // Debug: kiểm tra category tồn tại
+                var category = db.ProductCategories.Find(categoryId.Value);
+                System.Diagnostics.Debug.WriteLine($"Category found: {category != null}");
+
+                if (category != null)
+                {
+                    products = products.Where(p => p.CategoryID == categoryId.Value);
+                    ViewBag.CurrentCategoryId = categoryId.Value;
+                    ViewBag.CategoryName = category.Name;
+                }
+                else
+                {
+                    // Xử lý khi category không tồn tại
+                    ViewBag.Error = "Danh mục không tồn tại";
+                }
+            }
+
+            ViewBag.Categories = db.ProductCategories
+                .Where(c => c.Status == true)
+                .OrderBy(c => c.DisplayOrder)
+                .ToList();
+
+            return View(products.ToList());
+        }
+        [ChildActionOnly]
+        public ActionResult _CategoryMenu()
+        {
+            var categories = db.ProductCategories
+                .Where(c => c.Status == true)
+                .OrderBy(c => c.DisplayOrder)
+                .ToList();
+
+            return PartialView(categories);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+
+
+        // GET: ProductCategories/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProductCategory productCategory = db.ProductCategories.Find(id);
+            if (productCategory == null)
+            {
+                return HttpNotFound();
+            }
+            return View(productCategory);
+        }
+
+        // GET: ProductCategories/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: ProductCategories/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,Name,Alias,Description,ParentID,DisplayOrder,Status,Image")] ProductCategory productCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ProductCategories.Add(productCategory);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(productCategory);
+        }
+
+        // GET: ProductCategories/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProductCategory productCategory = db.ProductCategories.Find(id);
+            if (productCategory == null)
+            {
+                return HttpNotFound();
+            }
+            return View(productCategory);
+        }
+
+        // POST: ProductCategories/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,Name,Alias,Description,ParentID,DisplayOrder,Status,Image")] ProductCategory productCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(productCategory).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(productCategory);
+        }
+
+        // GET: ProductCategories/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProductCategory productCategory = db.ProductCategories.Find(id);
+            if (productCategory == null)
+            {
+                return HttpNotFound();
+            }
+            return View(productCategory);
+        }
+
+        // POST: ProductCategories/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ProductCategory productCategory = db.ProductCategories.Find(id);
+            db.ProductCategories.Remove(productCategory);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        
+    }
+}
