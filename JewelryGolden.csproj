@@ -170,6 +170,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\SlidesAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -275,6 +276,11 @@
     <Content Include="Areas\Admin\Views\Slides\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Slides\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Slides\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\UserAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\UserAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\UserAdmin\Edit.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
