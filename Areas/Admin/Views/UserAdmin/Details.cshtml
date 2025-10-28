@@ -1,0 +1,235 @@
+﻿@model JewelryGolden.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Chi tiết người dùng";
+}
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-user-circle me-2"></i>Thông tin chi tiết</span>
+                <span class="badge bg-success">
+                    <i class="fas fa-check-circle me-1"></i>Đang hoạt động
+                </span>
+            </div>
+            <div class="card-body">
+                <!-- User Avatar -->
+                <div class="text-center mb-4 pb-4 border-bottom">
+                    <div class="d-inline-flex align-items-center justify-content-center"
+                         style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 48px; font-weight: bold; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+                        @Model.UserName.Substring(0, 1).ToUpper()
+                    </div>
+                    <h3 class="mt-3 mb-1">@Model.UserName</h3>
+                    <p class="text-muted">Tài khoản quản trị viên</p>
+                </div>
+
+                <!-- User Information -->
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="p-3 rounded" style="background: #f8f9fa;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-id-card text-primary me-2" style="width: 20px;"></i>
+                                        <strong>ID:</strong>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <code style="background: white; padding: 4px 8px; border-radius: 4px;">@Model.Id</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="p-3 rounded" style="background: #f8f9fa;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-user text-primary me-2" style="width: 20px;"></i>
+                                        <strong>Tên đăng nhập:</strong>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span class="text-dark">@Model.UserName</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="p-3 rounded" style="background: #f8f9fa;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-envelope text-primary me-2" style="width: 20px;"></i>
+                                        <strong>Email:</strong>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <a href="mailto:@Model.Email" class="text-decoration-none">@Model.Email</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="p-3 rounded" style="background: #f8f9fa;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-phone text-primary me-2" style="width: 20px;"></i>
+                                        <strong>Số điện thoại:</strong>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                                    {
+                                        <a href="tel:@Model.PhoneNumber" class="text-decoration-none">@Model.PhoneNumber</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted fst-italic">Chưa cập nhật</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="p-3 rounded" style="background: #f8f9fa;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-shield-alt text-primary me-2" style="width: 20px;"></i>
+                                        <strong>Vai trò:</strong>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-user-shield me-1"></i>Administrator
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="p-3 rounded" style="background: #f8f9fa;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-envelope-open-text text-primary me-2" style="width: 20px;"></i>
+                                        <strong>Email xác nhận:</strong>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    @if (Model.EmailConfirmed)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check me-1"></i>Đã xác nhận
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-clock me-1"></i>Chưa xác nhận
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="p-3 rounded" style="background: #f8f9fa;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-mobile-alt text-primary me-2" style="width: 20px;"></i>
+                                        <strong>SĐT xác nhận:</strong>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    @if (Model.PhoneNumberConfirmed)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check me-1"></i>Đã xác nhận
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-clock me-1"></i>Chưa xác nhận
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-2 justify-content-between">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>Quay lại danh sách
+                    </a>
+                    <div class="d-flex gap-2">
+                        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+                            <i class="fas fa-edit me-1"></i>Chỉnh sửa
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger">
+                            <i class="fas fa-trash me-1"></i>Xóa
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Card -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-history me-1"></i>Thông tin bổ sung
+                </h6>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-lock text-muted me-2"></i>
+                            <div>
+                                <small class="text-muted d-block">Xác thực 2 yếu tố</small>
+                                @if (Model.TwoFactorEnabled)
+                                {
+                                    <span class="badge bg-success">Đã bật</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Chưa bật</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-ban text-muted me-2"></i>
+                            <div>
+                                <small class="text-muted d-block">Tài khoản bị khóa</small>
+                                @if (Model.LockoutEnabled)
+                                {
+                                    <span class="badge bg-danger">Có thể khóa</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Không khóa</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
