@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
@@ -422,8 +424,22 @@
                     <i class="fas fa-folder-open"></i>
                     <span>Danh mục tin tức</span>
                 </a>
+
             </div>
+            @using (Html.BeginForm("Logout", "UserAdmin", FormMethod.Post, new { area = "Admin", @class = "d-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <button  type="submit" class="btn btn-danger btn-sm ms-5">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </button>
+            }
+
+
+
         </div>
+
+     
+     
     </div>
 
     <!-- Main Content -->

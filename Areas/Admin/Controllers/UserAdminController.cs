@@ -4,6 +4,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace JewelryGolden.Areas.Admin.Controllers
@@ -111,6 +112,12 @@ namespace JewelryGolden.Areas.Admin.Controllers
             return View(user);
         }
 
+        [Authorize]
+        public ActionResult Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login", "Account", new { area = "" }); // ← về trang /Account/Login
+        }
 
 
         protected override void Dispose(bool disposing)
