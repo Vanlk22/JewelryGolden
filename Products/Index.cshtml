@@ -1,135 +1,148 @@
 ﻿@model IEnumerable<JewelryGolden.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý sản phẩm";
 }
 
-<h2>Index</h2>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Quản lý /</span> Sản phẩm
+    </h4>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductCategory.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Alias)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MoreImages)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PromotionPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Warranty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HomeFlag)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HotFlag)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ViewCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedBy)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductCategory.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Alias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MoreImages)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PromotionPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Warranty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HomeFlag)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HotFlag)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ViewCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedBy)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+    <!-- Basic Bootstrap Table -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Danh sách sản phẩm</h5>
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                <i class="bx bx-plus me-1"></i> Thêm sản phẩm
+            </a>
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Danh mục</th>
+                        <th>Giá</th>
+                        <th>Giá KM</th>
+                        <th>Trạng thái</th>
+                        <th>Hot</th>
+                        <th>Trang chủ</th>
+                        <th>Lượt xem</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.Image))
+                                {
+                                    <img src="@item.Image" alt="@item.Name" class="rounded" width="50" height="50" />
+                                }
+                                else
+                                {
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="bx bx-image text-muted"></i>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <strong>@item.Name</strong>
+                                @if (!string.IsNullOrEmpty(item.Alias))
+                                {
+                                    <br />
+                                    <small class="text-muted">@item.Alias</small>
+                                }
+                            </td>
+                            <td>
+                                @if (item.ProductCategory != null)
+                                {
+                                    <span class="badge bg-label-primary">@item.ProductCategory.Name</span>
+                                }
+                            </td>
+                            <td>
+                                <strong>@item.Price.ToString("N0") ₫</strong>
+                            </td>
+                            <td>
+                                @if (item.PromotionPrice.HasValue)
+                                {
+                                    <span class="text-success">@item.PromotionPrice.Value.ToString("N0") ₫</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Status)
+                                {
+                                    <span class="badge bg-label-success">Hoạt động</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-label-danger">Tạm dừng</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.HotFlag)
+                                {
+                                    <span class="badge bg-label-warning">
+                                        <i class="bx bx-star me-1"></i>Hot
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.HomeFlag)
+                                {
+                                    <span class="badge bg-label-info">
+                                        <i class="bx bx-home me-1"></i>Hiển thị
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td>
+                                <span class="badge bg-label-secondary">@(item.ViewCount ?? 0)</span>
+                            </td>
+                            <td>
+                                @if (item.CreatedDate.HasValue)
+                                {
+                                    <small>@item.CreatedDate.Value.ToString("dd/MM/yyyy")</small>
+                                }
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="@Url.Action("Details", new { id = item.ID })">
+                                            <i class="bx bx-show me-1"></i> Xem chi tiết
+                                        </a>
+                                        <a class="dropdown-item" href="@Url.Action("Edit", new { id = item.ID })">
+                                            <i class="bx bx-edit-alt me-1"></i> Chỉnh sửa
+                                        </a>
+                                        <a class="dropdown-item" href="@Url.Action("Delete", new { id = item.ID })">
+                                            <i class="bx bx-trash me-1"></i> Xóa
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+</div>

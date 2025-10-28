@@ -1,0 +1,231 @@
+﻿@model JewelryGolden.Models.Product
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Quản lý /</span> Sản phẩm / <span class="text-muted fw-light">Chi tiết</span>
+    </h4>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Thông tin sản phẩm</h5>
+                    <div>
+                        <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                            <i class="bx bx-arrow-back me-1"></i> Quay lại
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = Model.ID })" class="btn btn-primary">
+                            <i class="bx bx-edit-alt me-1"></i> Chỉnh sửa
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @if (!string.IsNullOrEmpty(Model.Image))
+                            {
+                                <div class="text-center mb-3">
+                                    <img src="@Model.Image" alt="@Model.Name" class="img-fluid rounded" style="max-height: 300px;" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center mb-3">
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 300px;">
+                                        <i class="bx bx-image text-muted" style="font-size: 4rem;"></i>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Tên sản phẩm:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Model.Name
+                                </div>
+                            </div>
+                            <hr />
+
+                            @if (!string.IsNullOrEmpty(Model.Alias))
+                            {
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong>Alias:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Model.Alias
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Danh mục:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    @if (Model.ProductCategory != null)
+                                    {
+                                        <span class="badge bg-label-primary">@Model.ProductCategory.Name</span>
+                                    }
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Giá gốc:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span class="h5 text-primary">@Model.Price.ToString("N0") ₫</span>
+                                </div>
+                            </div>
+                            <hr />
+
+                            @if (Model.PromotionPrice.HasValue)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong>Giá khuyến mãi:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span class="h5 text-success">@Model.PromotionPrice.Value.ToString("N0") ₫</span>
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+
+                            @if (Model.Warranty.HasValue)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong>Bảo hành:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Model.Warranty tháng
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Trạng thái:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    @if (Model.Status)
+                                    {
+                                        <span class="badge bg-label-success">Hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-label-danger">Tạm dừng</span>
+                                    }
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Tính năng:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    @if (Model.HomeFlag)
+                                    {
+                                        <span class="badge bg-label-info me-1">
+                                            <i class="bx bx-home me-1"></i>Trang chủ
+                                        </span>
+                                    }
+                                    @if (Model.HotFlag)
+                                    {
+                                        <span class="badge bg-label-warning">
+                                            <i class="bx bx-star me-1"></i>Hot
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Lượt xem:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span class="badge bg-label-secondary">@(Model.ViewCount ?? 0)</span>
+                                </div>
+                            </div>
+                            <hr />
+
+                            @if (Model.CreatedDate.HasValue)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong>Ngày tạo:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Model.CreatedDate.Value.ToString("dd/MM/yyyy HH:mm")
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.CreatedBy))
+                            {
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong>Người tạo:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Model.CreatedBy
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <div class="mt-4">
+                            <h6>Mô tả ngắn</h6>
+                            <p class="text-muted">@Model.Description</p>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Content))
+                    {
+                        <div class="mt-4">
+                            <h6>Nội dung chi tiết</h6>
+                            <div class="text-muted">@Html.Raw(Model.Content.Replace("\n", "<br/>"))</div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.MoreImages))
+                    {
+                        <div class="mt-4">
+                            <h6>Hình ảnh bổ sung</h6>
+                            <div class="row">
+                                @{
+                                    var images = Model.MoreImages.Split('\n').Where(img => !string.IsNullOrWhiteSpace(img));
+                                }
+                                @foreach (var img in images)
+                                {
+                                    <div class="col-md-3 mb-3">
+                                        <img src="@img.Trim()" alt="Hình ảnh bổ sung" class="img-fluid rounded" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

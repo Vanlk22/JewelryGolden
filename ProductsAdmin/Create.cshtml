@@ -1,0 +1,206 @@
+﻿@model JewelryGolden.Models.Product
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Quản lý /</span> Sản phẩm / <span class="text-muted fw-light">Thêm mới</span>
+    </h4>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Thông tin sản phẩm</h5>
+                        <div>
+                            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                                <i class="bx bx-arrow-back me-1"></i> Quay lại
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bx bx-save me-1"></i> Lưu sản phẩm
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="Name">Tên sản phẩm <span class="text-danger">*</span></label>
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập tên sản phẩm" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="Alias">Alias</label>
+                                    @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập alias (tùy chọn)" } })
+                                    @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="CategoryID">Danh mục <span class="text-danger">*</span></label>
+                                    @Html.DropDownList("CategoryID", null, "-- Chọn danh mục --", htmlAttributes: new { @class = "form-select" })
+                                    @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="Warranty">Bảo hành (tháng)</label>
+                                    @Html.EditorFor(model => model.Warranty, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @placeholder = "Nhập số tháng bảo hành" } })
+                                    @Html.ValidationMessageFor(model => model.Warranty, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="OriginalPrice">Giá gốc <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.OriginalPrice, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "1000", @min = "0", @placeholder = "Nhập giá gốc" } })
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.OriginalPrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="Price">Giá bán <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "1000", @min = "0", @placeholder = "Nhập giá bán" } })
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="PromotionPrice">Giá khuyến mãi</label>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.PromotionPrice, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "1000", @min = "0", @placeholder = "Nhập giá khuyến mãi" } })
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.PromotionPrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="ImageFile">Hình ảnh chính</label>
+                                    <input type="file" name="ImageFile" id="ImageFile" class="form-control" accept="image/*" />
+                                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                                    <div class="mt-2">
+                                        <img id="previewImage" src="#" alt="Xem trước" style="display:none; max-height:120px;" class="rounded border" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="ViewCount">Lượt xem</label>
+                                    @Html.EditorFor(model => model.ViewCount, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @value = "0" } })
+                                    @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="MoreImages">Hình ảnh bổ sung</label>
+                            @Html.TextAreaFor(model => model.MoreImages, new { @class = "form-control", @rows = "3", @placeholder = "Nhập các URL hình ảnh bổ sung (mỗi URL một dòng)" })
+                            @Html.ValidationMessageFor(model => model.MoreImages, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="Description">Mô tả ngắn</label>
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "3", @placeholder = "Nhập mô tả ngắn về sản phẩm" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="Content">Nội dung chi tiết</label>
+                            @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @rows = "5", @placeholder = "Nhập nội dung chi tiết về sản phẩm" })
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        @Html.CheckBoxFor(model => model.Status, new { @class = "form-check-input" })
+                                        <label class="form-check-label" for="Status">
+                                            Trạng thái hoạt động
+                                        </label>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        @Html.CheckBoxFor(model => model.HomeFlag, new { @class = "form-check-input" })
+                                        <label class="form-check-label" for="HomeFlag">
+                                            Hiển thị trang chủ
+                                        </label>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.HomeFlag, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        @Html.CheckBoxFor(model => model.HotFlag, new { @class = "form-check-input" })
+                                        <label class="form-check-label" for="HotFlag">
+                                            Sản phẩm hot
+                                        </label>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.HotFlag, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hidden fields for tracking -->
+                        @Html.HiddenFor(model => model.CreatedDate, new { @Value = DateTime.Now })
+                        @Html.HiddenFor(model => model.CreatedBy, new { @Value = "Admin" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        (function () {
+            var input = document.getElementById('ImageFile');
+            if (input) {
+                input.addEventListener('change', function (e) {
+                    var file = e.target.files && e.target.files[0];
+                    var img = document.getElementById('previewImage');
+                    if (file && img) {
+                        var reader = new FileReader();
+                        reader.onload = function (ev) {
+                            img.src = ev.target.result;
+                            img.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        })();
+    </script>
+}
+
