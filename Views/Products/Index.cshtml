@@ -105,8 +105,8 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="@Url.Action("Details", "Products", new { id = item.ID })" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                <a href="#" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                <a href="@Url.Action("Details", "Products", new { id = item.ID })" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
+                                <button onclick="addToCart(@item.ID)" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</button>
                             </div>
                         </div>
                     </div>
@@ -125,6 +125,54 @@
     </div>*@
 
 <!-- Shop End -->
+
+<script>
+    function addToCart(productId) {
+        $.ajax({
+            url: '@Url.Action("AddToCart", "Cart")',
+            type: 'POST',
+            data: {
+                productId: productId,
+                quantity: 1
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Hiển thị thông báo thành công
+                    showNotification('Đã thêm sản phẩm vào giỏ hàng!', 'success');
+                    
+                    // Cập nhật số lượng sản phẩm trong giỏ hàng (nếu có icon giỏ hàng)
+                    updateCartCount(response.cartCount);
+                } else {
+                    showNotification(response.message, 'error');
+                }
+            },
+            error: function() {
+                showNotification('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng', 'error');
+            }
+        });
+    }
+
+    function showNotification(message, type) {
+        // Tạo thông báo đơn giản
+        var alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        var notification = '<div class="alert ' + alertClass + ' alert-dismissible fade show position-fixed" style="top: 20px; right: 20px; z-index: 9999;">' +
+            message +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+            '</div>';
+        
+        $('body').append(notification);
+        
+        // Tự động ẩn sau 3 giây
+        setTimeout(function() {
+            $('.alert').fadeOut();
+        }, 3000);
+    }
+
+    function updateCartCount(count) {
+        // Cập nhật số lượng trong giỏ hàng nếu có element hiển thị
+        $('.cart-count').text(count);
+    }
+</script>
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@

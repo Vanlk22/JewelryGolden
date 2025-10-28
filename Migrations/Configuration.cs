@@ -22,24 +22,33 @@ namespace JewelryGolden.Migrations
         protected override void Seed(JewelryGolden.Models.JewelryDbContext context)
         {
 
+     
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            if (!context.Roles.Any(r => r.Name == "Admin"))
+
+            // Tạo role Admin nếu chưa có
+            if (!roleManager.RoleExists("Admin"))
             {
                 roleManager.Create(new IdentityRole("Admin"));
             }
 
-
-            if (!context.Users.Any(u => u.UserName == "admin"))
+            // Tạo tài khoản admin nếu chưa có
+            if (!userManager.Users.Any(u => u.UserName == "admin@jewelry.com"))
             {
                 var user = new ApplicationUser
                 {
-                    UserName = "admin",
-                    Email = "admin@jewelry.com"
-
+                    UserName = "admin@jewelry.com",
+                    Email = "admin@jewelry.com",
+                    EmailConfirmed = true
                 };
-                userManager.Create(user, "Abc@123");
-                userManager.AddToRole(user.Id, "Admin");
+
+                // ✅ Tạo user với hashing chuẩn
+                var result = userManager.Create(user, "Abc@123");
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, "Admin");
+                }
             }
 
 
@@ -54,7 +63,7 @@ namespace JewelryGolden.Migrations
                     new ProductCategory { Name = "Necklaces", Alias = "necklaces", Status = true },
                     new ProductCategory { Name = "Watchs", Alias = "watchs", Status = true }
                 };
-                context.ProductCategories.AddRange(categories);
+        context.ProductCategories.AddRange(categories);
                 context.SaveChanges();
             }
 
@@ -63,12 +72,12 @@ namespace JewelryGolden.Migrations
             {
 
                 var nhanCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "rings");
-                var dayChuyenCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "bracelets");
-                var bongTaiCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "earrings");
-                var vongTayCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "necklaces");
-                var dongHoCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "watchs");
+    var dayChuyenCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "bracelets");
+    var bongTaiCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "earrings");
+    var vongTayCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "necklaces");
+    var dongHoCat = context.ProductCategories.FirstOrDefault(c => c.Alias == "watchs");
 
-                var products = new List<Product>
+    var products = new List<Product>
                 {
 
                     new Product
@@ -547,7 +556,7 @@ namespace JewelryGolden.Migrations
                         },
 
                 };
-                context.Products.AddRange(products);
+    context.Products.AddRange(products);
                 context.SaveChanges();
             }
         }

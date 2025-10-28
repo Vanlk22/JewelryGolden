@@ -17,10 +17,10 @@ namespace JewelryGolden.Models
         public int ID { get; set; }
 
         [Required]
-        [MaxLength(256)]
+        //[MaxLength(256)]
         public string Name { get; set; }
 
-        [MaxLength(256)]
+        //[MaxLength(256)]
         public string Alias { get; set; }
 
         public string Description { get; set; }

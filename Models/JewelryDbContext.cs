@@ -33,8 +33,6 @@ namespace JewelryGolden.Models
             modelBuilder.Entity<OrderDetail>().HasKey(od => new { od.OrderID, od.ProductID });
             base.OnModelCreating(modelBuilder);
 
-            // Tùy chọn: Đổi tên bảng Identity nếu cần (nên làm để giữ gọn gàng)
-            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
         }
     }
 }
